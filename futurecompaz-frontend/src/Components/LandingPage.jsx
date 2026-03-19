@@ -79,34 +79,24 @@ const programs = [
 
 const whyChooseUs = [
   {
-    emoji: "🎯",
-    title: "Live Interactive Classes",
-    text: "Real-time Zoom sessions with expert teachers. Not pre-recorded videos — real learning, real interaction, real impact.",
+    emoji: "🎓",
+    title: "Experienced Tutors",
+    text: "Our tutors have years of experience working with students of all ages and adapt their teaching to different learning styles.",
   },
   {
-    emoji: "🌍",
-    title: "India & NRI Focused",
-    text: "Curriculum aligned with Indian values and global aspirations. Perfect for students in India and worldwide NRI communities.",
+    emoji: "🧩",
+    title: "Personalized Learning",
+    text: "One-on-one attention and customized teaching plans that match your child’s pace, strengths, and areas of growth.",
   },
   {
-    emoji: "🌱",
-    title: "Beyond Academics",
-    text: "A holistic curriculum designed to nurture critical thinking, emotional intelligence, and interpersonal skills.",
+    emoji: "🕒",
+    title: "Flexible Scheduling",
+    text: "Busy family calendar? Choose timings that work best for your home routine without compromising on learning quality.",
   },
   {
-    emoji: "👩‍🏫",
-    title: "Passionate Instructors",
-    text: "Our educators combine deep subject expertise with genuine love for teaching — making every class engaging and enjoyable.",
-  },
-  {
-    emoji: "🏆",
-    title: "Proven Results",
-    text: "Students show measurable improvement in grades, confidence, and real-world skills within just 3 months of joining.",
-  },
-  {
-    emoji: "🔒",
-    title: "Safe & Trusted",
-    text: "A safe, moderated learning environment. Parents stay informed with progress updates and direct teacher communication.",
+    emoji: "💸",
+    title: "Affordable Pricing",
+    text: "Competitive pricing with practical packages so families can access quality education without financial stress.",
   },
 ];
 
@@ -254,11 +244,27 @@ export default function LandingPage() {
             <Link to="/cultural-roots" className="fc-nav-link">
               Cultural Roots
             </Link>
+
+            <Link to="/cart" className="fc-nav-link fc-cart-link">
+              <span className="fc-cart-icon"></span>
+              Cart
+            </Link>
           </div>
 
           <div className="fc-nav-actions">
-            <button className="fc-login-btn">Log In</button>
-            <button className="fc-signup-btn">Sign Up Free</button>
+            <button
+              className="fc-login-btn"
+              onClick={() => navigate("/login")}
+            >
+              Log In
+            </button>
+
+            <button
+              className="fc-signup-btn"
+              onClick={() => navigate("/signup")}
+            >
+              Sign Up Free
+            </button>
           </div>
         </div>
       </nav>
@@ -282,10 +288,16 @@ export default function LandingPage() {
             </p>
 
             <div className="fc-hero-buttons">
-              <button className="fc-primary-btn" onClick={() => navigate("/k12")}>
-                Explore Courses
+<button className="fc-primary-btn" onClick={() => navigate("/courses")}>
+  Explore Courses
+</button>
+
+              <button
+                className="fc-enroll-btn"
+                onClick={() => navigate("/signup")}
+              >
+                Enroll Now
               </button>
-              <button className="fc-secondary-btn">Watch Demo</button>
             </div>
 
             <div className="fc-stats">
@@ -306,36 +318,48 @@ export default function LandingPage() {
 
           <div className="fc-hero-right">
             <div className="hero-info-card hero-card-large">
-              <div className="hero-card-icon">📚</div>
-              <h3>Structured Learning Paths</h3>
+              
+              <h3> ✨ Find the Perfect Program for Your Child</h3>
               <p>
-                Academic, coding, cultural, and life-skill programs designed for
-                real growth.
+                From academics to coding, culture, and confidence-building, every
+                class is designed to help children grow with joy.
               </p>
             </div>
 
             <div className="hero-info-grid">
               <div className="hero-info-card hero-card-small white-card">
-                <div className="hero-card-icon">👩‍🏫</div>
-                <h4>Live Mentorship</h4>
-                <p>Interactive sessions with expert educators.</p>
+                <div className="hero-card-icon">🎥</div>
+                <h4>Live Online Classes</h4>
+                <p>Interactive sessions with real teachers, not recorded videos.</p>
               </div>
 
               <div className="hero-info-card hero-card-small orange-card">
-                <div className="hero-card-icon">⭐</div>
-                <h4>Parent Trusted</h4>
-                <p>Highly rated by families across India and worldwide.</p>
+                <div className="hero-card-icon">🌍</div>
+                <h4>India & NRI Friendly</h4>
+                <p>Built for families in India and across the world.</p>
               </div>
             </div>
 
             <div className="hero-session-card">
-              <div className="session-top">TODAY&apos;S FOCUS</div>
-              <h4>Future-ready learning for every child</h4>
-              <p>Academics • Confidence • Communication • Values</p>
-              <div className="session-progress">
-                <div className="progress-fill"></div>
+              <div className="session-top">POPULAR LEARNING TRACKS</div>
+              <h4>Academics • Coding • Debate • Culture</h4>
+              <p>Pick a path your child will truly enjoy and stay excited about.</p>
+
+              <div className="hero-track-tags">
+                <span>Math</span>
+                <span>Reading</span>
+                <span>Python</span>
+                <span>Debate</span>
+                <span>Culture</span>
+                <span>Leadership</span>
               </div>
-              <button className="session-btn">Join the Journey →</button>
+
+              <button
+                className="session-btn"
+                onClick={() => navigate("/signup")}
+              >
+                Start Enrolling →
+              </button>
             </div>
           </div>
         </div>
@@ -452,7 +476,9 @@ export default function LandingPage() {
           </p>
 
           <div className="cta-buttons">
-            <button className="fc-primary-btn">Get Started Free</button>
+            <button className="fc-primary-btn" onClick={() => navigate("/signup")}>
+              Get Started Free
+            </button>
             <button className="fc-secondary-dark">Talk to an Advisor</button>
           </div>
         </div>
