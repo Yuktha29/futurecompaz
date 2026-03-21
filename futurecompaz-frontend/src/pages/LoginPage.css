@@ -264,4 +264,19 @@ input {
     height: 56px;
     font-size: 20px;
   }
+  .login-error {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #d62828;
+  font-weight: 700;
+  text-align: center;
+}
+
+.login-success {
+  margin-top: 4px;
+  font-size: 15px;
+  color: #15803d;
+  font-weight: 700;
+  text-align: center;
+}
 }

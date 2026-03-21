@@ -1,10 +1,8 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./SignUpPage.css";
+import { Link } from "react-router-dom";
+import "./SignupPage.css";
 
-export default function SignUpPage() {
-  const navigate = useNavigate();
-
+const SignupPage = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -14,8 +12,8 @@ export default function SignUpPage() {
     confirmPassword: "",
   });
 
-  const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
@@ -28,7 +26,7 @@ export default function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    setMessage("");
+    setSuccess("");
 
     if (
       !formData.name ||
@@ -47,10 +45,15 @@ export default function SignUpPage() {
       return;
     }
 
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:5000/api/auth/signup", {
+      const response = await fetch("http://localhost:5050/api/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -67,10 +70,12 @@ export default function SignUpPage() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || "Signup failed.");
+        setError(data.message || "Signup failed.");
+        return;
       }
 
-      setMessage("Account created successfully!");
+      setSuccess(data.message || "Account created successfully!");
+
       setFormData({
         name: "",
         email: "",
@@ -79,12 +84,9 @@ export default function SignUpPage() {
         password: "",
         confirmPassword: "",
       });
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
     } catch (err) {
-      setError(err.message || "Something went wrong.");
+      console.error("Signup fetch error:", err);
+      setError("Failed to connect to server.");
     } finally {
       setLoading(false);
     }
@@ -92,42 +94,29 @@ export default function SignUpPage() {
 
   return (
     <div className="signup-page">
-      <nav className="fc-navbar">
-        <div className="fc-navbar-inner">
-          <Link to="/" className="fc-brand">
-            <div className="fc-logo-box">🧭</div>
-            <div className="fc-brand-text">
-              <span className="brand-blue">Future</span>
-              <span className="brand-orange">Compaz</span>
-            </div>
-          </Link>
-
-          <div className="fc-nav-actions">
-            <button className="fc-login-btn" onClick={() => navigate("/")}>
-              Back Home
-            </button>
-          </div>
-        </div>
-      </nav>
-
       <div className="signup-wrapper">
         <div className="signup-card">
-          <div className="signup-badge">Join FutureCompaz</div>
-          <h1>Create Your Account</h1>
+          <div className="signup-topbar">
+            <Link to="/" className="back-home-btn">
+              ← Back to Home
+            </Link>
+          </div>
+
+          <span className="signup-badge">Join FutureCompaz</span>
+          <h1>Create your account</h1>
           <p className="signup-subtitle">
-            Start your child’s journey with live expert-led learning, confidence,
-            and future-ready skills.
+            Sign up to explore programs and get started.
           </p>
 
           <form className="signup-form" onSubmit={handleSubmit}>
             <div className="signup-field">
-              <label>Name</label>
+              <label>Full Name</label>
               <input
                 type="text"
                 name="name"
-                placeholder="Enter full name"
                 value={formData.name}
                 onChange={handleChange}
+                placeholder="Enter your full name"
               />
             </div>
 
@@ -136,9 +125,9 @@ export default function SignUpPage() {
               <input
                 type="email"
                 name="email"
-                placeholder="Enter email address"
                 value={formData.email}
                 onChange={handleChange}
+                placeholder="Enter your email"
               />
             </div>
 
@@ -147,9 +136,9 @@ export default function SignUpPage() {
               <input
                 type="text"
                 name="phone"
-                placeholder="Enter phone number"
                 value={formData.phone}
                 onChange={handleChange}
+                placeholder="Enter your phone number"
               />
             </div>
 
@@ -158,9 +147,9 @@ export default function SignUpPage() {
               <input
                 type="text"
                 name="grade"
-                placeholder="Example: Grade 7"
                 value={formData.grade}
                 onChange={handleChange}
+                placeholder="Enter your grade/class"
               />
             </div>
 
@@ -169,9 +158,9 @@ export default function SignUpPage() {
               <input
                 type="password"
                 name="password"
-                placeholder="Create password"
                 value={formData.password}
                 onChange={handleChange}
+                placeholder="Create a password"
               />
             </div>
 
@@ -180,16 +169,20 @@ export default function SignUpPage() {
               <input
                 type="password"
                 name="confirmPassword"
-                placeholder="Re-enter password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
+                placeholder="Confirm your password"
               />
             </div>
 
             {error && <p className="signup-error">{error}</p>}
-            {message && <p className="signup-success">{message}</p>}
+            {success && <p className="signup-success">{success}</p>}
 
-            <button type="submit" className="signup-submit-btn" disabled={loading}>
+            <button
+              type="submit"
+              className="signup-submit-btn"
+              disabled={loading}
+            >
               {loading ? "Creating Account..." : "Sign Up"}
             </button>
           </form>
@@ -197,4 +190,6 @@ export default function SignUpPage() {
       </div>
     </div>
   );
-}
+};
+
+export default SignupPage;

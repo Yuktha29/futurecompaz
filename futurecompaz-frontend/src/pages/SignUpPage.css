@@ -138,3 +138,30 @@
     font-size: 28px;
   }
 }
+
+.signup-topbar {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 18px;
+}
+
+.back-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+  color: #d96b00;
+  background: #fff7ef;
+  border: 1px solid rgba(255, 166, 77, 0.28);
+  padding: 10px 14px;
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.back-home-btn:hover {
+  background: #ffe9d2;
+  color: #b85a00;
+  transform: translateY(-1px);
+}
